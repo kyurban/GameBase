@@ -1,12 +1,12 @@
 package com.kyurban.GameBase.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/product")
 public class ProductController {
 
     private final ProductService productService;
@@ -16,7 +16,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping
+    @GetMapping(path="/products")
     public List<Product> getProducts() {
         return productService.getProducts();
     }

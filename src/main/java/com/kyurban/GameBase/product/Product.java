@@ -1,9 +1,12 @@
 package com.kyurban.GameBase.product;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import jakarta.persistence.*;
 
+@Entity
+@Table
 public class Product {
 
+    @Id
     private int id;
     private String name;
     private double price;
