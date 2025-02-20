@@ -18,4 +18,31 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> getProdByID() {
+        return productRepository.findAll();
+    }
+
+    public List<Product> getProdByName() {
+        return productRepository.findAll();
+    }
+
+    public List<Product> getProdByPrice(double price) {
+        return productRepository.findAll();
+    }
+
+    public List<Product> getProdByStock(int stock) {
+        return productRepository.findAll();
+    }
+
+    public List<Product> addProduct() {
+        return productRepository.findAll();
+    }
+
+    public List<Product> updateProduct(Product product) {
+        return productRepository.findAll();
+    }
+
+    public List<Product> deleteProduct() {
+        return productRepository.findAll();
+    }
 }
