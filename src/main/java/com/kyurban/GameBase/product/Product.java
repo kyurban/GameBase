@@ -49,7 +49,7 @@ public class Product {
         this.price = price;
     }
 
-    public long getStock() {
+    public int getStock() {
         return stock;
     }
 

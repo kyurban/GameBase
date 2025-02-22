@@ -1,9 +1,7 @@
 package com.kyurban.GameBase.product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -17,7 +15,13 @@ public class ProductController {
     }
 
     @GetMapping(path="/products")
-    public List<Product> getProducts() {
+    public List<Product> getProducts(
+            @RequestParam(required = false) int id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) double price,
+            @RequestParam(required = false) int stock
+    ) {
+
         return productService.getProducts();
     }
 }

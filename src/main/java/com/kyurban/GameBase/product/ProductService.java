@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -18,31 +19,48 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getProdByID() {
-        return productRepository.findAll();
+    public Optional<Product> getProdByID(int id) {
+        return productRepository.findById(id);
     }
 
-    public List<Product> getProdByName() {
-        return productRepository.findAll();
+    public List<Product> getProdByName(String name) {
+        return productRepository.findByName(name);
     }
 
     public List<Product> getProdByPrice(double price) {
-        return productRepository.findAll();
+        return productRepository.findByPrice(price);
     }
 
     public List<Product> getProdByStock(int stock) {
-        return productRepository.findAll();
+        return productRepository.findByStock(stock);
     }
 
-    public List<Product> addProduct() {
-        return productRepository.findAll();
+    public Product addProduct(Product product) {
+        return productRepository.save(product);
     }
 
-    public List<Product> updateProduct(Product product) {
-        return productRepository.findAll();
+    public Product updateProduct(int id, Product product) {
+        Optional<Product> existingProductOptional = productRepository.findById(id);
+        if (existingProductOptional.isPresent()) {
+            Product existingProduct = existingProductOptional.get();
+            if (product.getName() != null) {
+                existingProduct.setName(product.getName());
+            }
+            if (product.getPrice() > 0.0) {
+                existingProduct.setPrice(product.getPrice());
+            }
+            if (product.getStock() >= 0) {
+                existingProduct.setStock(product.getStock());
+            }
+            return productRepository.save(existingProduct);
+        } else {
+            throw new RuntimeException("Product not found with id: " + id);
+        }
     }
 
-    public List<Product> deleteProduct() {
-        return productRepository.findAll();
+    public void deleteProduct(int id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+        }
     }
 }
