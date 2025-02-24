@@ -12,6 +12,8 @@ public class Product {
     private double price;
     private int  stock;
 
+    public Product() {}
+
     public Product(int id, String name, double price, int stock) {
         this.id = id;
         this.name = name;
@@ -25,7 +27,7 @@ public class Product {
         this.stock = stock;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

@@ -39,8 +39,8 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product updateProduct(int id, Product product) {
-        Optional<Product> existingProductOptional = productRepository.findById(id);
+    public Product updateProduct(Product product) {
+        Optional<Product> existingProductOptional = productRepository.findById(product.getId());
         if (existingProductOptional.isPresent()) {
             Product existingProduct = existingProductOptional.get();
             if (product.getName() != null) {
@@ -54,13 +54,11 @@ public class ProductService {
             }
             return productRepository.save(existingProduct);
         } else {
-            throw new RuntimeException("Product not found with id: " + id);
+            return null;
         }
     }
 
-    public void deleteProduct(int id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-        }
+    public void deleteProduct(String productName) {
+        productRepository.deleteByName(productName);
     }
 }
