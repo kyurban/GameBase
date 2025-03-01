@@ -3,7 +3,6 @@ package com.kyurban.GameBase.product;
 import jakarta.persistence.*;
 
 @Entity
-@Table
 public class Product {
 
     @Id
