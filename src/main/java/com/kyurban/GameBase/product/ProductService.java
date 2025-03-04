@@ -19,11 +19,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProdByID(int id) {
-        return productRepository.findById(id);
+    public Optional<Product> getProdById(int productId) {
+        System.out.println("Fetching product with ID: " + productId);
+        return productRepository.findById(productId);
     }
 
-    public List<Product> getProdByName(String name) {
+    public Optional<Product> getProdByName(String name) {
         return productRepository.findByName(name);
     }
 
@@ -56,6 +57,28 @@ public class ProductService {
         } else {
             return null;
         }
+    }
+
+    public Product decrementStock(int productId, int quantityToDecrement) {
+        System.out.println("Entering decrementStock method for product ID: " + productId);
+        Optional<Product> existingProductOptional = productRepository.findById(productId);
+
+        if (existingProductOptional.isPresent()) {
+            Product existingProduct = existingProductOptional.get();
+            System.out.println("Current stock before decrement: " + existingProduct.getStock());
+
+            if (existingProduct.getStock() >= quantityToDecrement) {
+                existingProduct.setStock(existingProduct.getStock() - quantityToDecrement);
+                System.out.println("Updated stock after decrement: " + existingProduct.getStock());
+                return productRepository.save(existingProduct);
+            } else {
+                System.out.println("Insufficient stock for product with ID: " + productId);
+            }
+        } else {
+            System.out.println("Product with ID " + productId + " not found.");
+        }
+
+        return null;
     }
 
     public void deleteProduct(String productName) {

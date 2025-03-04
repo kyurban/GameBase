@@ -2,12 +2,14 @@ package com.kyurban.GameBase.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(path = "/api/product")
+@Controller
+@RequestMapping(path = "/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -18,20 +20,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getProducts(
-            @RequestParam(required = false) Integer id,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) Double price,
-            @RequestParam(required = false) Integer stock){
-        if (name != null) {
-            return productService.getProdByName(name);
-        } else if (price != null) {
-            return productService.getProdByPrice(price);
-        } else if (stock != null) {
-            return productService.getProdByStock(stock);
-        } else {
-            return productService.getProducts();
-        }
+    public String getProducts(Model model) {
+        model.addAttribute("products", productService.getProducts());
+        return "products";
     }
 
     @PostMapping

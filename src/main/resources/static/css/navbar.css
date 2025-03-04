@@ -1,0 +1,77 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #2d6a4f; /* Green color for background */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Space between GameBase and Cart */
+    align-items: center; /* Vertically align all elements */
+    width: 100%;
+}
+
+/* Navbar content container */
+nav {
+    display: flex;
+    justify-content: space-between; /* Space between the three parts: title, nav, cart */
+    align-items: center;
+    width: 100%;
+}
+
+/* Title styling */
+#title {
+    color: #f4a261; /* Light orange color for the title */
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: 50px; /* Add some space for the middle navigation links */
+}
+
+/* Unordered list styling */
+ul {
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Center the nav items */
+    width: 100%; /* Make sure the nav occupies all available space */
+}
+
+/* List item and link styling */
+ul li {
+    list-style-type: none;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #f4a261; /* Light orange color for the links */
+    font-size: 1.2rem;
+}
+
+/* Hover effect for links */
+ul li a:hover {
+    color: #ff7f50; /* Slightly darker orange when hovering */
+}
+
+/* Cart section container (right-aligned) */
+.cart-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align the cart to the right */
+}
+
+/* Cart section */
+#cart {
+    color: #f4a261; /* Light orange color for the cart */
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+/* Cart image styling */
+img {
+    width: 30px;
+    height: auto;
+    margin-left: 10px;
+}

@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
     <title>NavBar</title>
 </head>
 <body>
@@ -14,8 +15,8 @@
             <li><a th:href="@{/products}">Products</a></li>
             <li><a th:href="@{/about}">About</a></li>
         </ul>
-        <img src="static.images/cartIcon.png">
-        <h2 id="cart">Cart</h2>
+        <img src="/static/images/cartIcon.png" alt="cart">
+        <h2 id="cart"><a th:href="@{/cart}">Cart</a></h2>
     </nav>
 </div>
 
