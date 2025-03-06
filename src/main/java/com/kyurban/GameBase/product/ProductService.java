@@ -76,4 +76,14 @@ public class ProductService {
     public void deleteProduct(String productName) {
         productRepository.deleteByName(productName);
     }
+
+    public void incrementStock(int productId, int quantityToIncrement) {
+        Optional<Product> existingProductOptional = productRepository.findById(productId);
+
+        if (existingProductOptional.isPresent()) {
+            Product existingProduct = existingProductOptional.get();
+            existingProduct.setStock(existingProduct.getStock() + quantityToIncrement);
+            productRepository.save(existingProduct);
+        }
+    }
 }

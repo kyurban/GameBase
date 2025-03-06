@@ -16,7 +16,9 @@
         <h2 th:text="${cartItem.name}"></h2>
         <p>Price: $<span th:text="${cartItem.price}"></span></p>
         <p>Quantity: <span th:text="${cartItem.quantity}"></span></p>
-        <button type="submit">Remove</button>
+        <form th:action="@{'/cart/remove/' + ${cartItem.name}}" method="post" onsubmit="return confirm('Remove item from cart?')">
+            <button type="submit">Remove</button>
+        </form>
     </div>
 </div>
 

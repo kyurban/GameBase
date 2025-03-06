@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class CartItemController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<String> addCartItem(@ModelAttribute CartItem cartItem) {
         Product product = productService.getProdByName(cartItem.getName()).orElse(null);
 
@@ -58,19 +60,31 @@ public class CartItemController {
         return new ResponseEntity<>("Item added to cart.", HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<CartItem> updateCartItem(@RequestBody CartItem cartItem) {
-        CartItem resultCartItem = cartItemService.updateCartItem(cartItem);
-        if (resultCartItem != null) {
-            return new ResponseEntity<>(resultCartItem, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+    @PostMapping("/remove/{productName}")
+    @Transactional
+    public ResponseEntity<String> removeCartItem(@PathVariable String productName) {
+        List<CartItem> cartItems = cartItemService.getCartItemByName(productName);
 
-    @DeleteMapping("/{cartItemName}")
-    public ResponseEntity<String> deleteCartItem(@PathVariable String cartItemName) {
-        cartItemService.deleteCartItem(cartItemName);
-        return new ResponseEntity<>("Cart item deleted successfully", HttpStatus.OK);
+        if (cartItems.isEmpty()) {
+            return new ResponseEntity<>("Cart item not found.", HttpStatus.NOT_FOUND);
+        }
+
+        CartItem cartItem = cartItems.get(0);
+        Product product = productService.getProdByName(productName).orElse(null);
+
+        if (product == null) {
+            return new ResponseEntity<>("Associated product not found.", HttpStatus.NOT_FOUND);
+        }
+
+        if (cartItem.getQuantity() > 1) {
+            cartItem.setQuantity(cartItem.getQuantity() - 1);
+            cartItem.setPrice(cartItem.getQuantity() * product.getPrice());
+            cartItemService.updateCartItem(cartItem);
+        } else {
+            cartItemService.deleteCartItem(cartItem.getName());
+        }
+
+        productService.incrementStock(product.getId(), 1);
+        return new ResponseEntity<>("Item removed from cart.", HttpStatus.OK);
     }
 }
