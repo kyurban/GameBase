@@ -60,24 +60,16 @@ public class ProductService {
     }
 
     public Product decrementStock(int productId, int quantityToDecrement) {
-        System.out.println("Entering decrementStock method for product ID: " + productId);
         Optional<Product> existingProductOptional = productRepository.findById(productId);
 
         if (existingProductOptional.isPresent()) {
             Product existingProduct = existingProductOptional.get();
-            System.out.println("Current stock before decrement: " + existingProduct.getStock());
 
             if (existingProduct.getStock() >= quantityToDecrement) {
                 existingProduct.setStock(existingProduct.getStock() - quantityToDecrement);
-                System.out.println("Updated stock after decrement: " + existingProduct.getStock());
                 return productRepository.save(existingProduct);
-            } else {
-                System.out.println("Insufficient stock for product with ID: " + productId);
             }
-        } else {
-            System.out.println("Product with ID " + productId + " not found.");
         }
-
         return null;
     }
 

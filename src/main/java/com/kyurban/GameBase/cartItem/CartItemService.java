@@ -44,17 +44,17 @@ public class CartItemService {
     public CartItem updateCartItem(CartItem cartItem) {
         Optional<CartItem> existingCartItemOptional = cartItemRepository.findById(cartItem.getId());
         if (existingCartItemOptional.isPresent()) {
-            CartItem existingProduct = existingCartItemOptional.get();
+            CartItem existingCartItem = existingCartItemOptional.get();
             if (cartItem.getName() != null) {
-                existingProduct.setName(cartItem.getName());
+                existingCartItem.setName(cartItem.getName());
             }
             if (cartItem.getPrice() > 0.0) {
-                existingProduct.setPrice(cartItem.getPrice());
+                existingCartItem.setPrice(cartItem.getPrice());
             }
             if (cartItem.getQuantity() >= 0) {
-                existingProduct.setQuantity(cartItem.getQuantity());
+                existingCartItem.setQuantity(cartItem.getQuantity());
             }
-            return cartItemRepository.save(existingProduct);
+            return cartItemRepository.save(existingCartItem);
         } else {
             return null;
         }

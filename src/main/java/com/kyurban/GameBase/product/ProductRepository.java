@@ -15,5 +15,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByPrice(double price);
     List<Product> findByStock(int stock);
     void deleteByName(String productName);
-
 }

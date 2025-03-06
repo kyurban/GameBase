@@ -31,28 +31,31 @@ public class CartItemController {
     }
 
     @PostMapping
-    public ResponseEntity<CartItem> addCartItem(@ModelAttribute CartItem cartItem) {
-        System.out.println("Entering addCartItem method");
-
+    public ResponseEntity<String> addCartItem(@ModelAttribute CartItem cartItem) {
         Product product = productService.getProdByName(cartItem.getName()).orElse(null);
 
-        if (product != null) {
-            System.out.println("Product found: " + product.getName());
-
-            product = productService.decrementStock(product.getId(), cartItem.getQuantity());
-            if (product != null) {
-                System.out.println("Product updated successfully.");
-            } else {
-                System.out.println("Failed to update product stock.");
-            }
-        } else {
-            System.out.println("Product not found with name: " + cartItem.getName());
+        if (product == null) {
+            return new ResponseEntity<>("Product not found.", HttpStatus.NOT_FOUND);
         }
 
+        if (product.getStock() == 0 || product.getStock() < cartItem.getQuantity()) {
+            return new ResponseEntity<>("Product is out of stock.", HttpStatus.BAD_REQUEST);
+        }
 
-        CartItem createdCartItem = cartItemService.addCartItem(cartItem);
+        List<CartItem> existingCartItems = cartItemService.getCartItemByName(cartItem.getName());
 
-        return new ResponseEntity<>(createdCartItem, HttpStatus.CREATED);
+        if (!existingCartItems.isEmpty()) {
+            CartItem existingCartItem = existingCartItems.get(0);
+            existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
+            existingCartItem.setPrice(existingCartItem.getQuantity() * product.getPrice());
+            cartItemService.updateCartItem(existingCartItem);
+        } else {
+            cartItem.setPrice(cartItem.getQuantity() * product.getPrice());
+            cartItemService.addCartItem(cartItem);
+        }
+
+        productService.decrementStock(product.getId(), cartItem.getQuantity());
+        return new ResponseEntity<>("Item added to cart.", HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -68,6 +71,6 @@ public class CartItemController {
     @DeleteMapping("/{cartItemName}")
     public ResponseEntity<String> deleteCartItem(@PathVariable String cartItemName) {
         cartItemService.deleteCartItem(cartItemName);
-        return new ResponseEntity<>("CartItem deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Cart item deleted successfully", HttpStatus.OK);
     }
 }
