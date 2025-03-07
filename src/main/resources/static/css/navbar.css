@@ -1,75 +1,74 @@
-/* Basic reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
 }
 
-/* Navbar styling */
 .navbar {
-    background-color: #2d6a4f; /* Green color for background */
-    padding: 10px 20px;
+    background-color: #808080;
+    padding: 12px 24px;
     display: flex;
-    justify-content: space-between; /* Space between GameBase and Cart */
-    align-items: center; /* Vertically align all elements */
-    width: 100%;
-}
-
-/* Navbar content container */
-nav {
-    display: flex;
-    justify-content: space-between; /* Space between the three parts: title, nav, cart */
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-/* Title styling */
-#title {
-    color: #f4a261; /* Light orange color for the title */
-    font-size: 2rem;
-    font-weight: bold;
-    margin-right: 50px; /* Add some space for the middle navigation links */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-/* Unordered list styling */
+#title {
+    color: #B22222;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
 ul {
     display: flex;
-    gap: 20px;
-    justify-content: center; /* Center the nav items */
-    width: 100%; /* Make sure the nav occupies all available space */
+    gap: 1.25rem;
+    justify-content: center;
+    width: 100%;
+    padding-right: 40px;
 }
 
-/* List item and link styling */
 ul li {
     list-style-type: none;
 }
 
 ul li a {
     text-decoration: none;
-    color: #f4a261; /* Light orange color for the links */
-    font-size: 1.2rem;
+    color: #B22222;
+    font-size: 1.4rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-/* Hover effect for links */
 ul li a:hover {
-    color: #ff7f50; /* Slightly darker orange when hovering */
+    color: #8B1A1A;
 }
 
-/* Cart section container (right-aligned) */
 .cart-container {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Align the cart to the right */
+    justify-content: flex-end;
 }
 
-/* Cart section */
-#cart {
-    color: #f4a261; /* Light orange color for the cart */
-    font-size: 1.2rem;
-    margin-left: 10px;
+#cart a {
+    text-decoration: none;
+    color: #B22222;
+    font-size: 1.4rem;
+    margin-left: 0.625rem;
+    transition: color 0.3s ease;
 }
 
-/* Cart image styling */
+#cart a:hover {
+    color: #8B1A1A;
+}
+
 img {
     width: 30px;
     height: auto;

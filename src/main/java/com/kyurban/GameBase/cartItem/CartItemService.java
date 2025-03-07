@@ -1,9 +1,7 @@
 package com.kyurban.GameBase.cartItem;
 
-import com.kyurban.GameBase.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +56,17 @@ public class CartItemService {
         } else {
             return null;
         }
+    }
+
+    public double getTotal() {
+        List<CartItem> cartItems = cartItemRepository.findAll(); // Fetch all cart items
+        double total = 0.0;
+
+        for (CartItem item : cartItems) {
+            total += item.getPrice() * item.getQuantity(); // Calculate total price for each item
+        }
+
+        return total;
     }
 
     public void deleteCartItem(String cartItemName) {

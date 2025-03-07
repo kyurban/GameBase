@@ -3,8 +3,6 @@ package com.kyurban.GameBase.cartItem;
 import com.kyurban.GameBase.product.Product;
 import com.kyurban.GameBase.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,21 +25,27 @@ public class CartItemController {
 
     @GetMapping
     public String viewCart(Model model) {
+        List<CartItem> cartItems = cartItemService.getCart();
+
+        double total = cartItemService.getTotal();
+
         model.addAttribute("cartItems", cartItemService.getCart());
+        model.addAttribute("total", total);
+
         return "cart";
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> addCartItem(@ModelAttribute CartItem cartItem) {
+    public String addCartItem(@ModelAttribute CartItem cartItem) {
         Product product = productService.getProdByName(cartItem.getName()).orElse(null);
 
         if (product == null) {
-            return new ResponseEntity<>("Product not found.", HttpStatus.NOT_FOUND);
+            return "redirect:/products";
         }
 
         if (product.getStock() == 0 || product.getStock() < cartItem.getQuantity()) {
-            return new ResponseEntity<>("Product is out of stock.", HttpStatus.BAD_REQUEST);
+            return "redirect:/products";
         }
 
         List<CartItem> existingCartItems = cartItemService.getCartItemByName(cartItem.getName());
@@ -57,23 +61,23 @@ public class CartItemController {
         }
 
         productService.decrementStock(product.getId(), cartItem.getQuantity());
-        return new ResponseEntity<>("Item added to cart.", HttpStatus.CREATED);
+        return "redirect:/products";
     }
 
     @PostMapping("/remove/{productName}")
     @Transactional
-    public ResponseEntity<String> removeCartItem(@PathVariable String productName) {
+    public String removeCartItem(@PathVariable String productName) {
         List<CartItem> cartItems = cartItemService.getCartItemByName(productName);
 
         if (cartItems.isEmpty()) {
-            return new ResponseEntity<>("Cart item not found.", HttpStatus.NOT_FOUND);
+            return "redirect:/cart";
         }
 
         CartItem cartItem = cartItems.get(0);
         Product product = productService.getProdByName(productName).orElse(null);
 
         if (product == null) {
-            return new ResponseEntity<>("Associated product not found.", HttpStatus.NOT_FOUND);
+            return "redirect:/cart";
         }
 
         if (cartItem.getQuantity() > 1) {
@@ -85,6 +89,6 @@ public class CartItemController {
         }
 
         productService.incrementStock(product.getId(), 1);
-        return new ResponseEntity<>("Item removed from cart.", HttpStatus.OK);
+        return "redirect:/cart";
     }
 }
