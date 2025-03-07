@@ -5,3 +5,57 @@ body {
     font-family: 'Kanit', sans-serif;
     background-color: #e0e0e0;
 }
+
+#your-cart {
+    text-align: center;
+    font-size: 2rem;
+    margin: 25px 25px;
+}
+
+#cart-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cart {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    text-align: center;
+}
+
+.cart h2 {
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+
+.cart p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.cart button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.cart button:hover {
+    background-color: #c9302c;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    text-align: center;
+}

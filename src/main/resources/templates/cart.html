@@ -13,12 +13,12 @@
 
 <div th:insert="fragments/navbar :: body"></div>
 
-<h2>Your Cart</h2>
+<h2 id="your-cart">Your Cart</h2>
 
 <div id="cart-list">
     <div th:each="cartItem : ${cartItems}" class="cart">
         <h2 th:text="${cartItem.name}"></h2>
-        <p>Price: $<span th:text="${cartItem.price}"></span></p>
+        <p>Price: $<span th:text="${#numbers.formatDecimal(cartItem.price, 1, 2)}"></span></p>
         <p>Quantity: <span th:text="${cartItem.quantity}"></span></p>
         <form th:action="@{'/cart/remove/' + ${cartItem.name}}" method="post" onsubmit="return confirm('Remove item from cart?')">
             <button type="submit">Remove</button>
@@ -27,7 +27,7 @@
 </div>
 
 <div th:if="${cartItems.size() > 0}">
-    <h3>Total: $<span th:text="${total}"></span></h3>
+    <h3>Total: $<span th:text="${#numbers.formatDecimal(total, 1, 2)}"></span></h3>
 </div>
 
 <div th:insert="fragments/footer :: body"></div>

@@ -13,8 +13,6 @@
 
     <div th:insert="fragments/navbar :: body"></div>
 
-    <h1>Products</h1>
-
     <div id="product-list">
         <div th:each="product : ${products}" class="product">
             <h2 th:text="${product.name}"></h2>
@@ -24,7 +22,7 @@
                   th:if="${product.stock > 0}"
                   onsubmit="return confirm('Add to cart?')">
                 <input type="hidden" name="name" th:value="${product.name}" />
-                <input type="hidden" name="price" th:value="${product.price}" />
+                <input type="hidden" name="price" th:value="${#numbers.formatDecimal(product.price, 1, 2)}"/>
                 <input type="hidden" name="quantity" value="1" />
                 <button type="submit">Add to Cart</button>
             </form>
