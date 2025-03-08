@@ -22,9 +22,9 @@ GameBase is a web-based e-commerce application focused on selling gaming supplie
 - **Frontend**: Thymeleaf  
 - **Build Tool**: Maven  
 
-## Setup Instructions  
+# Setup Instructions  
 
-# Configure Database
+## Configure Database
 
 Please update the `application.properties` file with your database credentials:
 
@@ -34,7 +34,7 @@ spring.datasource.username=yourusername
 spring.datasource.password=yourpassword
 ```
 
-# Build and Run the Application
+## Build and Run the Application
 
 To build and run the application, please use the following command:
 
@@ -42,7 +42,7 @@ To build and run the application, please use the following command:
 mvn spring-boot:run
 ```
 
-# API Endpoints
+## API Endpoints
 
 | Method | Endpoint      | Description                          |
 |--------|---------------|--------------------------------------|
