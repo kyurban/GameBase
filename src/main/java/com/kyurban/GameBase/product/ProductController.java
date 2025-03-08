@@ -30,20 +30,4 @@ public class ProductController {
         Product createdProduct = productService.addProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
-
-    @PutMapping
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        Product resultProduct = productService.updateProduct(product);
-        if (resultProduct != null) {
-            return new ResponseEntity<>(resultProduct, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/{productName}")
-    public ResponseEntity<String> deleteProduct(@PathVariable String productName) {
-        productService.deleteProduct(productName);
-        return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
-    }
 }
