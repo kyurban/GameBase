@@ -11,7 +11,6 @@ public class ViewController {
         return "dashboard";
     }
 
-
     @GetMapping("/about")
     public String about() {
         return "about";

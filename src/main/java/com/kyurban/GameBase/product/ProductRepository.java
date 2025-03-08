@@ -13,6 +13,5 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     Optional<Product> findByName(String name);
     List<Product> findByPrice(double price);
-    List<Product> findByStock(int stock);
     void deleteByName(String productName);
 }

@@ -19,20 +19,8 @@ public class CartItemService {
         return cartItemRepository.findAll();
     }
 
-    public Optional<CartItem> getCartItemByID(int id) {
-        return cartItemRepository.findById(id);
-    }
-
     public List<CartItem> getCartItemByName(String name) {
         return cartItemRepository.findByName(name);
-    }
-
-    public List<CartItem> getCartItemByPrice(double price) {
-        return cartItemRepository.findByPrice(price);
-    }
-
-    public List<CartItem> getCartItemByQuantity(int quantity) {
-        return cartItemRepository.findByQuantity(quantity);
     }
 
     public CartItem addCartItem(CartItem cartItem) {
@@ -61,11 +49,9 @@ public class CartItemService {
     public double getTotal() {
         List<CartItem> cartItems = cartItemRepository.findAll(); // Fetch all cart items
         double total = 0.0;
-
         for (CartItem item : cartItems) {
             total += item.getPrice() * item.getQuantity(); // Calculate total price for each item
         }
-
         return total;
     }
 

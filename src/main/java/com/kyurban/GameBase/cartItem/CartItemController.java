@@ -26,12 +26,9 @@ public class CartItemController {
     @GetMapping
     public String viewCart(Model model) {
         List<CartItem> cartItems = cartItemService.getCart();
-
         double total = cartItemService.getTotal();
-
         model.addAttribute("cartItems", cartItemService.getCart());
         model.addAttribute("total", total);
-
         return "cart";
     }
 

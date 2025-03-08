@@ -7,7 +7,5 @@ import java.util.Optional;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
     List<CartItem> findByName(String name);
-    List<CartItem> findByPrice(double price);
-    List<CartItem> findByQuantity(int quantity);
     void deleteByName(String CartItemName);
 }

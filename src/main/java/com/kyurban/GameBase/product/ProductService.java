@@ -19,21 +19,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProdById(int productId) {
-        System.out.println("Fetching product with ID: " + productId);
-        return productRepository.findById(productId);
-    }
-
     public Optional<Product> getProdByName(String name) {
         return productRepository.findByName(name);
     }
 
     public List<Product> getProdByPrice(double price) {
         return productRepository.findByPrice(price);
-    }
-
-    public List<Product> getProdByStock(int stock) {
-        return productRepository.findByStock(stock);
     }
 
     public Product addProduct(Product product) {
