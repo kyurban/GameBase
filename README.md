@@ -24,8 +24,6 @@ GameBase is a web-based e-commerce application focused on selling gaming supplie
 
 # Setup Instructions  
 
-## Configure Database
-
 Please update the `application.properties` file with your database credentials:
 
 ```
@@ -33,8 +31,6 @@ spring.datasource.url=jdbc:mysql://localhost:3306/gamebase
 spring.datasource.username=yourusername
 spring.datasource.password=yourpassword
 ```
-
-## Build and Run the Application
 
 To build and run the application, please use the following command:
 
